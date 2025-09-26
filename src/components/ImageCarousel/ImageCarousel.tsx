@@ -1,11 +1,11 @@
 import React from "react";
-import LeftIcon from "../../assets/leftIcon";
-import RightIcon from "../../assets/rightIcon";
+import { ArrowButton } from "../ArrowButton";
 
 interface ImageCarouselProps {
     images: { src: string; alt: string; caption?: string; }[];
     loop?: boolean;
 }
+
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true}) => {
     const [index, setIndex] = React.useState<number>(0);
@@ -50,12 +50,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true}) => 
                 <img className="absolute inset-0 z-0 w-full h-full object-cover" src={current.src} alt={current.alt} />
                 {/* Controls */}
                 {n > 1 && <div className="absolute inset-3 flex items-center justify-between px-4 z-20">
-                    <button disabled={!canPrev} onClick={prev} aria-label="Previous Slide" className="h-11 w-11 rounded-full grid place-items-center text-gray-100 disabled:text-gray-600">
-                        <LeftIcon />
-                    </button>
-                    <button disabled={!canNext} onClick={next} aria-label="Next Slide" className="h-11 w-11 rounded-full grid place-items-center text-gray-100 disabled:text-gray-600">
-                        <RightIcon />
-                    </button>
+                    <ArrowButton className="h-11 w-11" direction="left" size={48} variant="solid" disabled={!canPrev} onClick={prev}/>
+                    <ArrowButton className="h-11 w-11" direction="right" size={48} variant="solid" disabled={!canNext} onClick={next}/>
                 </div>}
                 {/* Indicators */}
                 {n > 1 && <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-20">
@@ -70,7 +66,9 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true}) => 
                 </span>
             </div>
             {/* Caption */}
-            {images[index].caption && <div className="m-2">{current.caption}</div>}
+            {current.caption && <div className="mx-auto mt-3 max-w-3xl px-2">
+                <p className="text-sm text-slate-200/90 line-clamp-2" title={current.caption}>{current.caption}</p>
+            </div>}
 
         </>);
 };
