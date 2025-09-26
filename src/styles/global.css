@@ -6,3 +6,7 @@
     @apply bg-[#f3f7fc];
   }
 }
+
+:root{
+  margin-top: 24px;
+}
