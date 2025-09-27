@@ -48,8 +48,6 @@ export const ArrowButton = React.forwardRef<HTMLButtonElement, ArrowButtonProps>
 
     const classes = cx(base, variantStyle, className);
 
-    console.log('classes', classes);
-
     const label =
       srLabel ?? (direction === "left" ? "Previous slide" : "Next slide");
 

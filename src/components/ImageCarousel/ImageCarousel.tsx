@@ -2,6 +2,7 @@ import React from "react";
 import { ArrowButton } from "../ArrowButton";
 import { useAutoAdvance } from "../../hooks/useAutoAdvance";
 import { useVirtualWindow } from "../../hooks/useVirtualWindow";
+import { useImagePreload } from "../../hooks/useImagePreload";
 
 interface ImageCarouselProps {
     images: { src: string; alt: string; caption?: string; }[];
@@ -31,7 +32,13 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true, auto
     const { paused, setPaused, hoverProps } = useAutoAdvance({ enabled: autoPlay && carouselLength > 1, delay: interval, onAdvance: next, pauseWhenHidden: true });
 
     if (carouselLength === 0) return null;
-    const current = images[index];
+
+    // Virtual window: only prev/current/next mounted
+    const { windowItems, windowIndexMap } = useVirtualWindow(images, index);
+
+    // Preload current + next for instant switch
+    useImagePreload(images, index, { lookahead: 1 });
+
 
     const handleKeys = ((e: React.KeyboardEvent) => {
         switch (e.key) {
@@ -47,8 +54,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true, auto
         }
     })
 
-    const { windowItems, windowIndexMap } = useVirtualWindow(images, index);
-
+    const current = images[index];
 
     return (
         <>
@@ -84,7 +90,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true, auto
                     ))}
                 </div>}
                 {/* Live region (visually hidden) */}
-                <span className="sr-only" aria-live="polite">
+                <span className="sr-only" aria-live="polite" aria-atomic="true">
                     {`Slide ${index + 1} of ${carouselLength}: ${current.alt}${paused ? "(paused)" : ""}`}
                 </span>
             </div>
