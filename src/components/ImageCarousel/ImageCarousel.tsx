@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowButton } from "../ArrowButton";
 import { useAutoAdvance } from "../../hooks/useAutoAdvance";
+import { useVirtualWindow } from "../../hooks/useVirtualWindow";
 
 interface ImageCarouselProps {
     images: { src: string; alt: string; caption?: string; }[];
@@ -46,14 +47,29 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true, auto
         }
     })
 
+    const { windowItems, windowIndexMap } = useVirtualWindow(images, index);
+
 
     return (
         <>
             <div className="relative max-w-3xl mx-auto aspect-video overflow-hidden rounded-xl focus-visible:outline-2" tabIndex={0}
                 onKeyDown={handleKeys} {...hoverProps}>
-                {/* Slide (only current image for now) */}
+                {/* Only three absolutely-positioned slides */}
+                {windowItems.map((img, i) => {
+                    const readIdx = windowIndexMap[i];
+                    const isCurrent = readIdx === index;
 
-                <img className="absolute inset-0 z-0 w-full h-full object-cover" src={current.src} alt={current.alt} />
+                    return <img key={readIdx}
+                        className="absolute inset-0 z-0 w-full h-full object-cover"
+                        src={img.src}
+                        alt={img.alt}
+                        loading={isCurrent ? "eager" : "lazy"}
+                        fetchPriority={isCurrent ? "high" as const : "auto" as const}
+                        decoding="async"
+                    />
+                })}
+
+                {/* <img className="absolute inset-0 z-0 w-full h-full object-cover" src={current.src} alt={current.alt} /> */}
 
                 {/* Controls */}
                 {carouselLength > 1 && <div className="absolute inset-3 flex items-center justify-between px-4 z-20" onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
