@@ -83,7 +83,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true, auto
                     <ArrowButton className="h-11 w-11" direction="right" size={48} variant="solid" disabled={!canNext} onClick={next} />
                 </div>}
                 {/* Indicators */}
-                {carouselLength > 1 && <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                {carouselLength > 1 && <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-4 z-20">
                     {images.map((_, i) => (
                         <button key={i} aria-label={`Go to slide ${i + 1}`} aria-current={index === i} onClick={() => goTo(i)}
                             className={`h-3 w-3 rounded-full transition-colors ${index === i ? 'bg-white' : 'bg-gray-400'}`} />
