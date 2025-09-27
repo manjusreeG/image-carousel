@@ -4,7 +4,9 @@ readme_content = """# Image Carousel (React + TypeScript + Tailwind)
 
 A lightweight, accessible, and responsive image carousel built from scratch with React + TypeScript and Tailwind CSS.  
 Supports keyboard navigation, swipe/drag and optional thumbnails—perfect as a portfolio showcase.
-<!-- autoplay with sensible pause rules, lazy loading, and optional thumbnails—perfect as a portfolio showcase. -->
+autoplay with sensible pause rules, lazy loading, and optional thumbnails—perfect as a portfolio showcase.
+
+You can find the Image Carousel [here](https://image-carousel-ecru-delta.vercel.app/).
 
 ---
 
@@ -12,9 +14,9 @@ Supports keyboard navigation, swipe/drag and optional thumbnails—perfect as a 
 
 - **A11y-first**: roles, live region updates, keyboard (←/→), visible focus
 - **Touch & mouse swipe**: horizontal threshold + vertical scroll guard
-<!-- - **Autoplay**: interval timer, pause on hover, pause when tab hidden -->
-<!-- - **Virtualized slides**: render only current ±1 for smooth performance -->
-<!-- - **Lazy loading & neighbor prefetch** -->
+- **Autoplay**: interval timer, pause on hover, pause when tab hidden 
+- **Virtualized slides**: render only current ±1 for smooth performance 
+- **Lazy loading & neighbor prefetch**
 - **Clean UI**: full-bleed or padded-card layouts, indicators, captions
 - **Configurable**: loop/clamp, aspect ratio (16:9 by default)
 - **TypeScript**: typed props and events for clarity
@@ -75,10 +77,10 @@ type Slide = { src: string; alt: string; caption?: string };
 
 Recommended demo images (Unsplash, stable, no auth):
 ```
-https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1600&auto=format&fit=crop   (alt: Snowy mountain peaks at sunrise)
-https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop   (alt: Desert dunes at dusk)
-https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=1600&auto=format&fit=crop   (alt: Forest trail with fog)
-https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=1600&auto=format&fit=crop   (alt: Straight desert highway to mountains)
+https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1280&auto=format&fit=crop   (alt: Snowy mountain peaks at sunrise)
+https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1280&auto=format&fit=crop   (alt: Desert dunes at dusk)
+https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=1280&auto=format&fit=crop   (alt: Forest trail with fog)
+https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=1280&auto=format&fit=crop   (alt: Straight desert highway to mountains)
 
 ```
 
@@ -92,8 +94,8 @@ https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=1600&auto=fo
 | `images`         | `Slide[]`                   | —        | Array of `{src, alt, caption?}`.           |          |          |                     |
 | `initial`        | `number`                    | `0`      | Start index.                               |          |          |                     |
 | `loop`           | `boolean`                   | `true`   | Wrap around at edges; otherwise clamp.     |          |          |                     |
-<!-- | `autoPlay`       | `boolean`                   | `true`   | Enable autoplay.                           |          |          |                     |
-| `interval`       | `number` (ms)               | `3500`   | Time between slides.                       |          |          |                     | -->
+| `autoPlay`       | `boolean`                   | `true`   | Enable autoplay.                           |          |          |                     |
+| `interval`       | `number` (ms)               | `3500`   | Time between slides.                       |          |          |                     |
 | `aspect`         | \`"16/9" \\                 | "4/3" \\ | "1/1" \\                                   | "21/9"\` | `"16/9"` | Stage aspect ratio. |
 | `showIndicators` | `boolean`                   | `true`   | Show dot indicators below the stage.       |          |          |                     |
 | `showThumbnails` | `boolean`                   | `false`  | Show a thumbnail strip (optional feature). |          |          |                     |
@@ -125,11 +127,11 @@ https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=1600&auto=fo
 **Swipe / Drag**
 - Horizontal drag with distance threshold (~10–15% width or ~56px)
 - Vertical movement bias cancels swipe (preserves page scroll)
-
+-->
 **Autoplay**
 - Single timeout schedules `next()` at `interval`
 - Paused on: hover, dragging, or hidden tab (`visibilitychange`)
-- Resumes when conditions clear -->
+- Resumes when conditions clear 
 
 ---
 
@@ -167,6 +169,10 @@ flowchart LR
   App --> IMGS --> Carousel
 ```
 
+## GIF
+
+![Demo](image-carousel.gif)
+
 ---
 ## ⏱️ Milestones
 
@@ -176,10 +182,9 @@ flowchart LR
 - Keyboard arrows
 - Base a11y labels
 - Deploy MVP demo
-<!-- 
 
-**Day 2 – Core polish**
-- Swipe/drag layer with threshold
+
+**Core polish**
 - Autoplay + hover pause + visibility pause
 - Live region announcements
 - Lazy load + neighbor prefetch
@@ -191,17 +196,17 @@ flowchart LR
 - Tests (autoplay timing, keyboard, a11y)
 - Lightbox modal (zoom/pan)
 
---- -->
+--- 
 
 ## 🧪 Manual QA Checklist
 
 - Buttons, dots, keyboard all navigate correctly
 - Loop on/off works (wrap vs clamp with disabled edges)
 <!-- - Swipe: horizontal flick changes slide; vertical drag scrolls page -->
-<!-- - Autoplay pauses on hover, drag, and hidden tab; resumes properly -->
+- Autoplay pauses on hover, drag, and hidden tab; resumes properly
 - Screen reader announces “Slide X of Y: alt”
-<!-- - Only current ±1 slides mounted (when virtualization on)
-- Mobile: touch targets ≥ 44px; no image ghost-drag -->
+- Only current ±1 slides mounted (when virtualization on)
+<!-- - Mobile: touch targets ≥ 44px; no image ghost-drag -->
 - No console warnings; layout stable on resize
 
 ---
@@ -214,8 +219,8 @@ flowchart LR
   Install locally, then run `node node_modules/tailwindcss/lib/cli.js init -p`.
 - **Image too tall / too short**:  
   Ensure the stage has a fixed aspect (e.g., `aspect-video`), make image fill and use `object-cover` (or `object-contain` for letterboxing).
-<!-- - **Arrows not clickable with overlay**:  
-  Don’t set `pointer-events: none` on the controls wrapper; keep it clickable and layer it above the image. -->
+- **Arrows not clickable with overlay**:  
+  Don’t set `pointer-events: none` on the controls wrapper; keep it clickable and layer it above the image.
 
 ---
 
