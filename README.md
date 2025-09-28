@@ -4,6 +4,8 @@ A lightweight, accessible, and responsive image carousel built from scratch with
 Supports keyboard navigation, swipe/drag and optional thumbnails—perfect as a portfolio showcase.
 autoplay with sensible pause rules, lazy loading, and optional thumbnails—perfect as a portfolio showcase.
 
+You can find the Image Carousel [here](https://image-carousel-ecru-delta.vercel.app/).
+
 ---
 
 ## ✨ Features
