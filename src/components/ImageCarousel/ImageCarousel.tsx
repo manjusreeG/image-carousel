@@ -3,6 +3,7 @@ import { ArrowButton } from "../ArrowButton";
 import { useAutoAdvance } from "../../hooks/useAutoAdvance";
 import { useVirtualWindow } from "../../hooks/useVirtualWindow";
 import { useImagePreload } from "../../hooks/useImagePreload";
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
 interface ImageCarouselProps {
     images: { src: string; alt: string; caption?: string; }[];
@@ -29,7 +30,9 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true, auto
     const canPrev = loop ? true : index > 0;
     const canNext = loop ? true : index < carouselLength - 1;
 
-    const { paused, setPaused, hoverProps } = useAutoAdvance({ enabled: autoPlay && carouselLength > 1, delay: interval, onAdvance: next, pauseWhenHidden: true });
+    const reduced = usePrefersReducedMotion();
+
+    const { paused, setPaused, hoverProps } = useAutoAdvance({ enabled: autoPlay && !reduced && carouselLength > 1, delay: interval, onAdvance: next, pauseWhenHidden: true });
 
     if (carouselLength === 0) return null;
 
@@ -75,13 +78,23 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true, auto
                     />
                 })}
 
-                {/* <img className="absolute inset-0 z-0 w-full h-full object-cover" src={current.src} alt={current.alt} /> */}
-
                 {/* Controls */}
                 {carouselLength > 1 && <div className="absolute inset-3 flex items-center justify-between px-4 z-20" onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
                     <ArrowButton className="h-11 w-11" direction="left" size={48} variant="solid" disabled={!canPrev} onClick={prev} />
                     <ArrowButton className="h-11 w-11" direction="right" size={48} variant="solid" disabled={!canNext} onClick={next} />
                 </div>}
+                {/* Play/Pause toggle (top-right) */}
+                <button
+                    type="button"
+                    onClick={() => setPaused(!paused)}
+                    aria-pressed={paused}
+                    aria-label={paused ? "Play autoplay" : "Pause autoplay"}
+                    title={paused ? "Play" : "Pause"}
+                    className="absolute top-3 right-3 z-30 rounded-full bg-black/60 text-white text-xs px-3 py-1.5
+                            backdrop-blur hover:bg-black/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                >
+                    {paused ? "Play" : "Pause"}
+                </button>
                 {/* Indicators */}
                 {carouselLength > 1 && <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-4 z-20">
                     {images.map((_, i) => (
@@ -98,9 +111,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, loop = true, auto
             {current.caption && <div className="mx-auto mt-3 max-w-3xl px-2">
                 <p className="text-sm text-slate-200/90 line-clamp-2" title={current.caption}>{current.caption}</p>
             </div>}
-            {/* <button className="items-end border border-gray-300 bg-white/20 p-1 rounded-md" onClick={() => setPaused(!paused)}>
-                    {paused ? "Play" : "Pause"}
-            </button> */}
         </>);
 };
 
