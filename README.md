@@ -112,7 +112,9 @@ npm run dev
 
 <!-- ![Demo](image-carousel.gif) -->
 
-![React Image Carousel Demo](./assets/image-carousel.gif)
+<!-- ![React Image Carousel Demo](./assets/image-carousel.gif) -->
+
+<video src="assets/image-carousel.mp4" width="800" autoplay loop muted playsinline></video>
 
 ---
 ## ⏱️ Milestones
