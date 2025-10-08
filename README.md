@@ -1,4 +1,4 @@
-# 🧩 Image Carousel (React + TypeScript + Tailwind)
+### IMAGE CAROSUEL
 
 A lightweight, accessible, and responsive image carousel built from scratch with React + TypeScript and Tailwind CSS.  
 Supports keyboard navigation, swipe/drag and optional thumbnails—perfect as a portfolio showcase.
